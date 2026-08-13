@@ -1,41 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PlaceholderImage from "./PlaceholderImage";
 import GoldStroke from "./GoldStroke";
-import { client } from "@/lib/sanity.client";
-import { urlForImage } from "@/lib/sanity.image";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LOCAL_ITEMS = [
-  { title: "Reception Glam, Vadodara", label: "Portfolio 01", image: null },
-  { title: "Editorial Test Shoot", label: "Portfolio 02", image: null },
-  { title: "South Indian Bridal", label: "Portfolio 03", image: null },
-  { title: "Destination Wedding, Udaipur", label: "Portfolio 04", image: null },
-  { title: "Campaign — Skin & Light", label: "Portfolio 05", image: null },
-  { title: "Sangeet Glam", label: "Portfolio 06", image: null },
+const ITEMS = [
+  { title: "Reception Glam, Vadodara", label: "Portfolio 01" },
+  { title: "Editorial Test Shoot", label: "Portfolio 02" },
+  { title: "South Indian Bridal", label: "Portfolio 03" },
+  { title: "Destination Wedding, Udaipur", label: "Portfolio 04" },
+  { title: "Campaign — Skin & Light", label: "Portfolio 05" },
+  { title: "Sangeet Glam", label: "Portfolio 06" },
 ];
 
 export default function Portfolio() {
-  const [items, setItems] = useState(LOCAL_ITEMS);
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    client
-      .fetch(`*[_type == "portfolioItem"] | order(order asc)`)
-      .then((data) => {
-        if (data && data.length > 0) {
-          setItems(data);
-        }
-      })
-      .catch(() => {
-        // Fallback to local default data
-      });
-  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -62,7 +46,7 @@ export default function Portfolio() {
     }, section);
 
     return () => ctx.revert();
-  }, [items]);
+  }, []);
 
   return (
     <section id="portfolio" ref={sectionRef} className="relative overflow-hidden bg-ink">
@@ -76,16 +60,13 @@ export default function Portfolio() {
         ref={trackRef}
         className="flex h-[100dvh] w-max items-center gap-6 pl-6 pt-24 md:gap-10 md:pl-10"
       >
-        {items.map((item) => (
+        {ITEMS.map((item) => (
           <div
             key={item.title}
             data-cursor="View"
             className="relative h-[62vh] w-[70vw] flex-shrink-0 overflow-hidden rounded-sm md:h-[68vh] md:w-[32vw]"
           >
-            <PlaceholderImage
-              src={item.image ? urlForImage(item.image).url() : undefined}
-              label={item.label}
-            />
+            <PlaceholderImage label={item.label} />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 to-transparent p-6">
               <span className="font-body text-[10px] uppercase tracking-widest2 text-gold-light">
                 {item.label}

@@ -5,50 +5,41 @@ import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motio
 import GoldStroke from "./GoldStroke";
 import RevealText from "./RevealText";
 import PlaceholderImage from "./PlaceholderImage";
-import { client } from "@/lib/sanity.client";
-import { urlForImage } from "@/lib/sanity.image";
 
-const LOCAL_SERVICES = [
+const SERVICES = [
   {
     name: "Bridal Makeup",
     desc: "HD & airbrush application with draping assistance and a touch-up kit for the day.",
     price: "₹25,000 onward",
-    previewImage: null,
   },
   {
     name: "Editorial & Photoshoot",
     desc: "Camera-ready looks built for print, campaigns, and portfolios.",
     price: "₹12,000 onward",
-    previewImage: null,
   },
   {
     name: "Party & Reception Glam",
     desc: "Bold, luminous, and built to outlast the night.",
     price: "₹8,000 onward",
-    previewImage: null,
   },
   {
     name: "Pre-Bridal Rituals",
     desc: "Skin prep, brow shaping, and a trial session.",
     price: "₹6,000 onward",
-    previewImage: null,
   },
   {
     name: "Draping & Styling",
     desc: "Saree, lehenga, and dupatta draping by appointment.",
     price: "₹4,000 onward",
-    previewImage: null,
   },
   {
     name: "Destination & Travel",
     desc: "On-location artistry, anywhere the celebration takes you.",
     price: "On request",
-    previewImage: null,
   },
 ];
 
 export default function Services() {
-  const [services, setServices] = useState(LOCAL_SERVICES);
   const [hovered, setHovered] = useState<number | null>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
 
@@ -57,20 +48,6 @@ export default function Services() {
   const y = useMotionValue(-500);
   const springX = useSpring(x, { damping: 30, stiffness: 250, mass: 0.5 });
   const springY = useSpring(y, { damping: 30, stiffness: 250, mass: 0.5 });
-
-  useEffect(() => {
-    // Fetch live service data from Sanity CMS if configured
-    client
-      .fetch(`*[_type == "service"] | order(order asc)`)
-      .then((data) => {
-        if (data && data.length > 0) {
-          setServices(data);
-        }
-      })
-      .catch(() => {
-        // Fallback to local default data silently
-      });
-  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -102,6 +79,7 @@ export default function Services() {
     };
   }, [x, y]);
 
+
   return (
     <section
       id="services"
@@ -117,7 +95,7 @@ export default function Services() {
         </RevealText>
 
         <div className="relative mt-16">
-          {services.map((s, i) => (
+          {SERVICES.map((s, i) => (
             <RevealText key={s.name} delay={i * 0.05}>
               <div
                 onMouseEnter={() => setHovered(i)}
@@ -161,10 +139,9 @@ export default function Services() {
                 className="hidden md:block w-56 h-72 overflow-hidden rounded-sm border border-gold/30 shadow-2xl bg-ink/40"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-ink/20 z-10 pointer-events-none" />
-                
+
                 <PlaceholderImage
-                  src={services[hovered].previewImage ? urlForImage(services[hovered].previewImage).url() : undefined}
-                  label={services[hovered].name}
+                  label={SERVICES[hovered].name}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
