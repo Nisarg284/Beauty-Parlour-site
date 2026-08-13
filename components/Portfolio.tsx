@@ -58,7 +58,7 @@ export default function Portfolio() {
 
       <div
         ref={trackRef}
-        className="flex h-screen w-max items-center gap-6 pl-6 pt-24 md:gap-10 md:pl-10"
+        className="flex h-[100dvh] w-max items-center gap-6 pl-6 pt-24 md:gap-10 md:pl-10"
       >
         {ITEMS.map((item) => (
           <div

@@ -104,7 +104,7 @@ export default function ScrollScrubVideo({
   }, [pinHeight, onProgress]);
 
   return (
-    <div ref={sectionRef} className={`relative h-screen w-full overflow-hidden bg-ink ${className}`}>
+    <div ref={sectionRef} className={`relative h-[100dvh] w-full overflow-hidden bg-ink ${className}`}>
       <video
         ref={videoRef}
         src={src}

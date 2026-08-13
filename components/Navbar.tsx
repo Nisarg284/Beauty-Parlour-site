@@ -30,6 +30,9 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
@@ -86,23 +89,29 @@ export default function Navbar() {
             className="overflow-hidden bg-ink/95 backdrop-blur-md md:hidden"
           >
             <div className="flex flex-col gap-6 px-6 pb-8 pt-2">
-              {LINKS.map((link) => (
-                <a
+              {LINKS.map((link, i) => (
+                <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="font-display text-2xl text-ivory"
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.08 + i * 0.04, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-display text-2xl text-ivory block"
                 >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
-              <a
+              <motion.a
                 href="#booking"
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-full border border-gold/60 px-6 py-3 text-center font-body text-xs uppercase tracking-widest2 text-ivory"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.08 + LINKS.length * 0.04, duration: 0.45 }}
+                className="mt-2 rounded-full border border-gold/60 px-6 py-3 text-center font-body text-xs uppercase tracking-widest2 text-ivory block"
               >
                 Book a Consultation
-              </a>
+              </motion.a>
             </div>
           </motion.div>
         )}

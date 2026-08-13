@@ -7,7 +7,7 @@ const WORD = "AMARA";
 
 export default function HeroSimpleVideo() {
   return (
-    <section id="top" className="relative h-screen w-full overflow-hidden bg-ink">
+    <section id="top" className="relative h-[100dvh] w-full overflow-hidden bg-ink">
       {/* Autoplay looping background video */}
       <video
         src="/videos/hero-scrub.mp4"

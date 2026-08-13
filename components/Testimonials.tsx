@@ -41,7 +41,7 @@ export default function Testimonials() {
           <span className="font-display text-7xl leading-none text-gold/40">&ldquo;</span>
         </RevealText>
 
-        <div className="relative min-h-[220px] md:min-h-[160px]">
+        <div className="relative h-[320px] sm:h-[240px] md:h-[200px] flex flex-col justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
