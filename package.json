@@ -10,18 +10,18 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
-    "@sanity/image-url": "^2.1.1",
+    "@sanity/image-url": "^1.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.19",
     "gsap": "^3.12.5",
     "lenis": "^1.1.9",
     "lucide-react": "^0.417.0",
     "next": "16.2.11",
-    "next-sanity": "^13.3.2",
+    "next-sanity": "^9.8.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sanity": "^5.31.1",
-    "styled-components": "^6.5.2"
+    "sanity": "^3.67.0",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/node": "^20.14.14",
